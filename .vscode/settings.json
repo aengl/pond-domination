@@ -2,5 +2,6 @@
   "editor.formatOnSave": false,
   "[csharp]": {
     "editor.formatOnSave": true,
+    "editor.codeLens": false
   }
 }
