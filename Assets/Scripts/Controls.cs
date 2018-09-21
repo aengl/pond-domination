@@ -5,17 +5,16 @@ public static class Controls
 {
   readonly static float[] lastInput = { 0f, 0f, 0f, 0f };
 
-  public static float? GetRotation(int playerIndex)
+  public static Vector2? GetDirection(int playerIndex)
   {
     Vector2 v = new Vector2(
         Input.GetAxis(String.Format("Player{0} Horizontal", playerIndex)),
         Input.GetAxis(String.Format("Player{0} Vertical", playerIndex))
     );
-    bool rotate = Utils.VectorHasLength(v);
-    if (rotate)
+    if (Utils.VectorHasLength(v))
     {
       lastInput[playerIndex - 1] = Time.fixedTime;
-      return Utils.GetRotationForVector(v);
+      return v.normalized;
     }
     return null;
   }

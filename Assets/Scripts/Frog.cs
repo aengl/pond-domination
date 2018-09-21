@@ -17,6 +17,11 @@ public class Frog : MonoBehaviour
   public Tongue tongue;
   public HashSet<Mutation> mutations = new HashSet<Mutation>();
 
+  public float Health
+  {
+    get { return health; }
+  }
+
   public Vector2 MouthPosition
   {
     get { return transform.position; }
@@ -47,14 +52,14 @@ public class Frog : MonoBehaviour
     get { return CanJump; }
   }
 
-  public float Health
+  public bool IsAIControlled
   {
-    get { return health; }
+    get { return Controls.TimeSinceInput(playerIndex) > 5f; }
   }
 
   Rigidbody2D body;
   SpriteRenderer spriteRenderer;
-  float targetRotation = 0f;
+  Vector2? targetDirection = null;
 
   [SerializeField]
   Tongue activeTongue = null;
@@ -91,7 +96,8 @@ public class Frog : MonoBehaviour
   void FixedUpdate()
   {
     // Update rotation
-    Utils.RotateTowards(body, targetRotation, turnSpeed, Time.deltaTime);
+    if (targetDirection != null)
+      Utils.RotateTowards(body, targetDirection.Value, turnSpeed, Time.deltaTime);
   }
 
   void Update()
@@ -101,9 +107,10 @@ public class Frog : MonoBehaviour
       isStunned = body.velocity.magnitude > 1f || Mathf.Abs(body.angularVelocity) > 120f;
 
     // Rotate
-    float? rotation = Controls.GetRotation(playerIndex);
-    if (rotation != null)
-      targetRotation = rotation.Value;
+    Vector2? v = Controls.GetDirection(playerIndex);
+    if (v != null || !IsAIControlled)
+      // Don't ever set direction to null when AI controlled
+      targetDirection = v;
 
     // Jump
     if (Controls.Jump(playerIndex))
@@ -185,14 +192,14 @@ public class Frog : MonoBehaviour
   void UpdateAI()
   {
     // AI takes over if the player hasn't been playing for a while
-    if (Controls.TimeSinceInput(playerIndex) > 5f)
+    if (IsAIControlled)
     {
       if (Random.value > .5f)
         Jump();
       else if (Random.value > .85f)
         ShootTongue();
       else if (activeTongue == null)
-        targetRotation = Random.Range(0, 360f);
+        targetDirection = Random.insideUnitCircle;
     }
   }
 

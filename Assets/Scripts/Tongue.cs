@@ -28,8 +28,6 @@ public class Tongue : MonoBehaviour
     transform.localScale = frog.transform.localScale;
     lineRenderer.startWidth = frog.transform.localScale.x / 4f;
     lineRenderer.endWidth = lineRenderer.startWidth;
-
-    Debug.Log(this.ejectForce);
   }
 
   void Awake()
