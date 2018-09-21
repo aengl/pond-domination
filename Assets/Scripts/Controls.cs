@@ -14,7 +14,7 @@ public static class Controls
     bool rotate = Utils.VectorHasLength(v);
     if (rotate)
     {
-      lastInput[playerIndex] = Time.fixedTime;
+      lastInput[playerIndex - 1] = Time.fixedTime;
       return Utils.GetRotationForVector(v);
     }
     return null;
@@ -24,7 +24,7 @@ public static class Controls
   {
     bool jump = Input.GetAxis(String.Format("Player{0} Jump", playerIndex)) > float.Epsilon;
     if (jump)
-      lastInput[playerIndex] = Time.fixedTime;
+      lastInput[playerIndex - 1] = Time.fixedTime;
     return jump;
   }
 
@@ -32,12 +32,12 @@ public static class Controls
   {
     bool shootTongue = Input.GetButton(String.Format("Player{0} Tongue", playerIndex));
     if (shootTongue)
-      lastInput[playerIndex] = Time.fixedTime;
+      lastInput[playerIndex - 1] = Time.fixedTime;
     return shootTongue;
   }
 
   public static float TimeSinceInput(int playerIndex)
   {
-    return Time.fixedTime - lastInput[playerIndex];
+    return Time.fixedTime - lastInput[playerIndex - 1];
   }
 }

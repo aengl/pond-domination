@@ -1,12 +1,21 @@
 ﻿using UnityEngine;
+using System.Collections.Generic;
+
+public enum Mutation
+{
+  Giant
+}
 
 public class Frog : MonoBehaviour
 {
   public int playerIndex = 1;
   public float maxHealth = 100f;
   public float turnSpeed = 5f;
-  public float jumpForce = 20f;
+  public float jumpForce;
+  public float tongueEjectForce;
+  public float tongueReturnForce;
   public Tongue tongue;
+  public HashSet<Mutation> mutations = new HashSet<Mutation>();
 
   public Vector2 MouthPosition
   {
@@ -59,6 +68,12 @@ public class Frog : MonoBehaviour
   [SerializeField]
   bool isOutsidePond = false;
 
+  public void Mutate(Mutation mutation)
+  {
+    mutations.Add(mutation);
+    UpdateMutations();
+  }
+
   void Awake()
   {
     body = GetComponent<Rigidbody2D>();
@@ -67,10 +82,16 @@ public class Frog : MonoBehaviour
 
   void Start()
   {
-    health = maxHealth;
+    Respawn();
 
     // Update all AIs with a slight offset
     InvokeRepeating("UpdateAI", .1f * (float)playerIndex, .4f);
+  }
+
+  void FixedUpdate()
+  {
+    // Update rotation
+    Utils.RotateTowards(body, targetRotation, turnSpeed, Time.deltaTime);
   }
 
   void Update()
@@ -102,26 +123,43 @@ public class Frog : MonoBehaviour
 
     // Die
     if (health <= .0f)
-    {
-      health = maxHealth;
-      var position = Random.insideUnitCircle * 3f;
-      body.velocity = new Vector2();
-      body.angularVelocity = 0f;
-      body.rotation = Random.Range(0f, 360f);
-      body.position = new Vector3(position.x, position.y, 0f);
-    }
+      Respawn();
   }
 
   void LateUpdate()
   {
     UpdateDrag();
 
-    // Update rotation
-    Utils.RotateTowards(body, targetRotation, turnSpeed);
-
-    // Update scale
+    // Show "hops" by increasing sprite size
     float scale = 2.56f + body.velocity.magnitude / 20f;
     spriteRenderer.size = new Vector2(scale, scale);
+  }
+
+  void UpdateMutations()
+  {
+    // Scale
+    if (mutations.Contains(Mutation.Giant))
+      transform.localScale = new Vector3(2f, 2f, 2f);
+    else
+      transform.localScale = new Vector3(.4f, .4f, .4f);
+
+    // Mass
+    body.mass = 1f;
+    if (mutations.Contains(Mutation.Giant))
+      body.mass *= 5f;
+
+    // Jump force
+    jumpForce = 20f;
+
+    // Tongue eject force
+    tongueEjectForce = .25f;
+    if (mutations.Contains(Mutation.Giant))
+      tongueEjectForce /= 4f;
+
+    // Tongue return force
+    tongueReturnForce = 10f;
+    if (mutations.Contains(Mutation.Giant))
+      tongueReturnForce /= 2f;
   }
 
   void UpdateDrag()
@@ -169,8 +207,24 @@ public class Frog : MonoBehaviour
     if (CanUseAbilities)
     {
       activeTongue = Instantiate(tongue);
-      activeTongue.Eject(this);
+      activeTongue.Eject(this, body.mass * 200f, 10f,
+        tongueEjectForce, tongueReturnForce);
     }
+  }
+
+  void Respawn()
+  {
+    var position = Random.insideUnitCircle * 3f;
+
+    health = maxHealth;
+
+    body.velocity = new Vector2();
+    body.angularVelocity = 0f;
+    body.rotation = Random.Range(0f, 360f);
+    body.position = new Vector3(position.x, position.y, 0f);
+
+    mutations.Clear();
+    UpdateMutations();
   }
 
   void OnCollisionEnter2D(Collision2D collision)
@@ -181,11 +235,11 @@ public class Frog : MonoBehaviour
 
   void OnTriggerEnter2D(Collider2D collision)
   {
-    isOutsidePond &= collision.name != "PondTrigger";
+    isOutsidePond &= collision.tag != "Pond";
   }
 
   void OnTriggerExit2D(Collider2D collision)
   {
-    isOutsidePond |= collision.name == "PondTrigger";
+    isOutsidePond |= collision.tag == "Pond";
   }
 }

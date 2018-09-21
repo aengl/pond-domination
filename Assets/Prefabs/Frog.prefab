@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 2528769071505552793}
   m_Layer: 0
   m_Name: Frog
-  m_TagString: Player
+  m_TagString: Frog
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -50,10 +50,12 @@ MonoBehaviour:
   playerIndex: 1
   maxHealth: 100
   turnSpeed: 5
-  jumpForce: 20
+  jumpForce: 0
+  tongueEjectForce: 0
+  tongueReturnForce: 0
   tongue: {fileID: 4156581992355371621, guid: 3ca3a919273cf4f8a958c636262ab8e7, type: 3}
   activeTongue: {fileID: 0}
-  health: 100
+  health: 0
   isStunned: 0
   isOutsidePond: 0
 --- !u!212 &7043171250848339181

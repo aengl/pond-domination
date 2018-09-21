@@ -2,8 +2,9 @@
 
 public class Tongue : MonoBehaviour
 {
-  public float ejectForce = 50f;
-  public float returnForce = 2000f;
+  public float ejectForce;
+  public float returnForce;
+  public Frog frog;
 
   Rigidbody2D body;
   LineRenderer lineRenderer;
@@ -11,13 +12,24 @@ public class Tongue : MonoBehaviour
   [SerializeField]
   bool isReturning = false;
 
-  [SerializeField]
-  Frog frog;
-
-  public void Eject(Frog parent)
+  public void Eject(Frog frog, float mass, float drag,
+    float ejectForce, float returnForce)
   {
-    frog = parent;
-    transform.position = parent.MouthPosition;
+    this.frog = frog;
+    this.ejectForce = ejectForce * mass;
+    this.returnForce = returnForce * mass;
+
+    body.mass = mass;
+    body.drag = drag;
+
+    transform.position = frog.MouthPosition;
+
+    // Apply frog scale to tongue as well
+    transform.localScale = frog.transform.localScale;
+    lineRenderer.startWidth = frog.transform.localScale.x / 4f;
+    lineRenderer.endWidth = lineRenderer.startWidth;
+
+    Debug.Log(this.ejectForce);
   }
 
   void Awake()
@@ -51,10 +63,10 @@ public class Tongue : MonoBehaviour
       Vector2 back = frog.MouthPosition - body.position;
       body.AddForce(back * returnForce * body.mass * Time.fixedDeltaTime, ForceMode2D.Force);
 
-      if (back.magnitude < 1.0f)
+      // Remove object once we're close to the frog mouth again
+      if (back.magnitude < .1f)
       {
         Destroy(gameObject);
-        Destroy(this);
       }
     }
   }

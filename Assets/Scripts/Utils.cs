@@ -9,10 +9,12 @@ public static class Utils
 
   public static float GetRotationForVector(Vector2 v)
   {
-    return Mathf.Atan2(v.y, v.x) * Mathf.Rad2Deg - 90.0f;
+    Vector2 n = v.normalized;
+    return Mathf.Atan2(n.y, n.x) * Mathf.Rad2Deg - 90.0f;
   }
 
-  public static void RotateTowards(Rigidbody2D body, float targetRotation, float turnSpeed)
+  public static void RotateTowards(
+    Rigidbody2D body, float targetRotation, float speed, float timeDelta)
   {
     float rotation = body.rotation;
 
@@ -24,11 +26,22 @@ public static class Utils
     // Update rotation
     if (Mathf.Abs(rotationDelta) > float.Epsilon)
     {
-      float newRotation = rotation + turnSpeed * rotationDelta * Time.fixedDeltaTime;
+      float newRotation = rotation + speed * rotationDelta * timeDelta;
       body.MoveRotation(newRotation);
     }
 
     if (body.rotation > 360f) body.rotation -= 360f;
     if (body.rotation < -360f) body.rotation += 360f;
+  }
+
+  public static void RotateTowards(
+    Rigidbody2D body, Vector2 target, float speed, float timeDelta)
+  {
+    Utils.RotateTowards(body, Utils.GetRotationForVector(target), speed, timeDelta);
+  }
+
+  public static void MoveForward(Rigidbody2D body, float speed, float timeDelta)
+  {
+    body.AddRelativeForce(Vector2.up * speed * timeDelta, ForceMode2D.Force);
   }
 }
