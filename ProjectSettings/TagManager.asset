@@ -50,6 +50,9 @@ TagManager:
   - name: Tongue
     uniqueID: 1803716635
     locked: 0
+  - name: Flies
+    uniqueID: 206133477
+    locked: 0
   - name: Wall
     uniqueID: 1553759461
     locked: 0
