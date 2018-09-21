@@ -16,8 +16,8 @@ public class Tongue : MonoBehaviour
     float ejectForce, float returnForce)
   {
     this.frog = frog;
-    this.ejectForce = ejectForce * mass;
-    this.returnForce = returnForce * mass;
+    this.ejectForce = ejectForce * Mathf.Sqrt(mass);
+    this.returnForce = returnForce * Mathf.Sqrt(mass) * 100f;
 
     body.mass = mass;
     body.drag = drag;

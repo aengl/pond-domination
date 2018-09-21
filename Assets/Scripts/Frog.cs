@@ -10,7 +10,7 @@ public class Frog : MonoBehaviour
 {
   public int playerIndex = 1;
   public float maxHealth = 100f;
-  public float turnSpeed = 5f;
+  public float turnSpeed;
   public float jumpForce;
   public float tongueEjectForce;
   public float tongueReturnForce;
@@ -153,18 +153,23 @@ public class Frog : MonoBehaviour
     // Mass
     body.mass = 1f;
     if (mutations.Contains(Mutation.Giant))
-      body.mass *= 5f;
+      body.mass *= 4f;
+
+    // Turn speed
+    turnSpeed = 5f;
+    if (mutations.Contains(Mutation.Giant))
+      turnSpeed /= 8f;
 
     // Jump force
     jumpForce = 20f;
+    if (mutations.Contains(Mutation.Giant))
+      jumpForce /= 8f;
 
     // Tongue eject force
-    tongueEjectForce = .25f;
-    if (mutations.Contains(Mutation.Giant))
-      tongueEjectForce /= 4f;
+    tongueEjectForce = 40f;
 
     // Tongue return force
-    tongueReturnForce = 10f;
+    tongueReturnForce = 40f;
     if (mutations.Contains(Mutation.Giant))
       tongueReturnForce /= 2f;
   }
@@ -214,7 +219,7 @@ public class Frog : MonoBehaviour
     if (CanUseAbilities)
     {
       activeTongue = Instantiate(tongue);
-      activeTongue.Eject(this, body.mass * 200f, 10f,
+      activeTongue.Eject(this, body.mass, 10f,
         tongueEjectForce, tongueReturnForce);
     }
   }
