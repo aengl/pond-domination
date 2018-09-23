@@ -4,7 +4,8 @@ using System.Collections.Generic;
 public enum Mutation
 {
   Giant,
-  Fast
+  Blitz,
+  SuperTongue
 }
 
 public class Frog : MonoBehaviour
@@ -13,6 +14,7 @@ public class Frog : MonoBehaviour
   public float maxHealth = 100f;
   public float turnSpeed;
   public float jumpForce;
+  public float tongueDrag;
   public float tongueEjectForce;
   public float tongueReturnForce;
   public Tongue tongue;
@@ -190,23 +192,32 @@ public class Frog : MonoBehaviour
     turnSpeed = 5f;
     if (mutations.Contains(Mutation.Giant))
       turnSpeed /= 8f;
-    if (mutations.Contains(Mutation.Fast))
+    if (mutations.Contains(Mutation.Blitz))
       turnSpeed *= 4f;
 
     // Jump force
     jumpForce = 20f;
     if (mutations.Contains(Mutation.Giant))
       jumpForce /= 10f;
-    if (mutations.Contains(Mutation.Fast))
+    if (mutations.Contains(Mutation.Blitz))
       jumpForce *= 5f;
+
+    // Tongue drag
+    tongueDrag = 10f;
+    if (mutations.Contains(Mutation.SuperTongue))
+      tongueDrag *= 2f;
 
     // Tongue eject force
     tongueEjectForce = 40f;
+    if (mutations.Contains(Mutation.SuperTongue))
+      tongueEjectForce *= 4f;
 
     // Tongue return force
     tongueReturnForce = 40f;
     if (mutations.Contains(Mutation.Giant))
       tongueReturnForce /= 2f;
+    if (mutations.Contains(Mutation.SuperTongue))
+      tongueReturnForce *= 12f;
   }
 
   void UpdateDrag()
@@ -226,7 +237,7 @@ public class Frog : MonoBehaviour
     }
 
     // Fast frogs have higher drag and recover faster
-    if (mutations.Contains(Mutation.Fast))
+    if (mutations.Contains(Mutation.Blitz))
     {
       drag *= 2f;
       angularDrag *= 2f;
@@ -264,7 +275,7 @@ public class Frog : MonoBehaviour
     if (CanUseAbilities)
     {
       activeTongue = Instantiate(tongue);
-      activeTongue.Eject(this, body.mass, 10f,
+      activeTongue.Eject(this, body.mass, tongueDrag,
         tongueEjectForce, tongueReturnForce);
       Utils.PlayRandomClip(audioSource, audioSlurp, minPitch, maxPitch);
     }
