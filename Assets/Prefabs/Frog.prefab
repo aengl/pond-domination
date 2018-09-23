@@ -29,8 +29,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7043171250848339178}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -4.1026297, y: -0.72850436, z: 0}
-  m_LocalScale: {x: 0.40000004, y: 0.40000004, z: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 0.3, y: 0.3, z: 1}
   m_Children:
   - {fileID: 6344198051400837531}
   m_Father: {fileID: 0}
@@ -58,9 +58,36 @@ MonoBehaviour:
   audioQuak:
   - {fileID: 8300000, guid: 45628aa765e8f44ddb4cb1714c86cb52, type: 3}
   - {fileID: 8300000, guid: 1dd1f3c963bd04b3c9ccb195b7c80031, type: 3}
+  - {fileID: 8300000, guid: a552c549009d64b939812e1abfd6664c, type: 3}
+  - {fileID: 8300000, guid: 1e960c7b77c874b8ca26a33ae98f1904, type: 3}
+  - {fileID: 8300000, guid: 73bc3874caca3445ea7f06cd7bedbcf5, type: 3}
+  - {fileID: 8300000, guid: 67424ee0b30ea4ab5a5c4a1d4db5b552, type: 3}
   audioSlurp:
   - {fileID: 8300000, guid: fb087681e5eb74a90950ef1c5d4727c7, type: 3}
   - {fileID: 8300000, guid: 6c66cbfc444964ba290b092e9b15b75d, type: 3}
+  - {fileID: 8300000, guid: d91f940fd699b4af989dbbb1c070017f, type: 3}
+  - {fileID: 8300000, guid: 9f009c96a05564c4a950765e44bed17b, type: 3}
+  - {fileID: 8300000, guid: 5e6fbf2454654477f97401c1e13e92e7, type: 3}
+  audioHit:
+  - {fileID: 8300000, guid: b49fd391bcec843d6806d21cb6d27814, type: 3}
+  - {fileID: 8300000, guid: 287bd3271295e4d1d99b12f63697404b, type: 3}
+  - {fileID: 8300000, guid: 95cbcc73f75584d61b06375f6c3ab9a6, type: 3}
+  - {fileID: 8300000, guid: a440df5f6261141e7852c78b7916b939, type: 3}
+  - {fileID: 8300000, guid: ecaa0ea0ea39d429db5081212ca54790, type: 3}
+  - {fileID: 8300000, guid: 66283c7c8de0940569a9b56759dbbf06, type: 3}
+  - {fileID: 8300000, guid: 54a5030d86f7b46c3ba2cb47ead2ccae, type: 3}
+  - {fileID: 8300000, guid: b6328e145196640019185fbb29d5cf5c, type: 3}
+  audioDeath:
+  - {fileID: 8300000, guid: a8e071be154294a78b1addb75ac37942, type: 3}
+  - {fileID: 8300000, guid: 9600a340226004e1596ced92108ab9ad, type: 3}
+  - {fileID: 8300000, guid: 9d188aa1da5264080b02e7021ebb64ff, type: 3}
+  - {fileID: 8300000, guid: 00cbfa96c8f26432f84a746e40148d8b, type: 3}
+  - {fileID: 8300000, guid: bd68701a415814a7daa04f808d1f6cc9, type: 3}
+  - {fileID: 8300000, guid: 91b5c16a234894d5fb06516720f4140c, type: 3}
+  audioPickup:
+  - {fileID: 8300000, guid: d0d46e79e6ec34ae69fd9f57a7d8a418, type: 3}
+  - {fileID: 8300000, guid: 2e9b5b41dc5cf4be2a2f665c6d026497, type: 3}
+  - {fileID: 8300000, guid: f4da2329416f34bdf8f50b631c1aa83d, type: 3}
   activeTongue: {fileID: 0}
   health: 0
   isStunned: 0
@@ -82,7 +109,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 2824ce568b4784a8ebd161dc6292e3ad, type: 2}
+  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -102,7 +129,7 @@ SpriteRenderer:
   m_SortingLayerID: -1145186447
   m_SortingLayer: 1
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: e76a54c190ec7435b9d005dd7d78924e, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 16781252b2d444ee98005468793997bd, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -148,7 +175,7 @@ CapsuleCollider2D:
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
-  m_Size: {x: 1.06, y: 1.62}
+  m_Size: {x: 2.2, y: 2.2}
   m_Direction: 0
 --- !u!82 &3346372671466370882
 AudioSource:

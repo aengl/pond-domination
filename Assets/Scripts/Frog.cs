@@ -20,6 +20,7 @@ public class Frog : MonoBehaviour
   public AudioClip[] audioSlurp;
   public AudioClip[] audioHit;
   public AudioClip[] audioDeath;
+  public AudioClip[] audioPickup;
 
   public float Health
   {
@@ -82,6 +83,7 @@ public class Frog : MonoBehaviour
   {
     mutations.Add(mutation);
     UpdateMutations();
+    Utils.PlayRandomClip(audioSource, audioPickup);
   }
 
   void Awake()
@@ -137,7 +139,10 @@ public class Frog : MonoBehaviour
 
     // Die
     if (health <= .0f)
+    {
       Respawn();
+      Utils.PlayRandomClip(audioSource, audioDeath);
+    }
   }
 
   void LateUpdate()
@@ -257,6 +262,7 @@ public class Frog : MonoBehaviour
   {
     // Become stunned on collision
     isStunned = true;
+    Utils.PlayRandomClip(audioSource, audioHit);
   }
 
   void OnTriggerEnter2D(Collider2D collision)
