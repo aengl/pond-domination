@@ -53,7 +53,12 @@ public class Frog : MonoBehaviour
 
   public bool CanJump
   {
-    get { return !IsStunned && body.velocity.magnitude < .1f && activeTongue == null; }
+    get
+    {
+      return !IsStunned
+        && body.velocity.magnitude < .1f
+        && activeTongue == null;
+    }
   }
 
   public bool CanUseAbilities
@@ -68,7 +73,7 @@ public class Frog : MonoBehaviour
 
   Rigidbody2D body;
   AudioSource audioSource;
-  CapsuleCollider2D collider;
+  new CapsuleCollider2D collider;
   SpriteRenderer spriteRenderer;
   Vector2? targetDirection = null;
 
@@ -162,6 +167,10 @@ public class Frog : MonoBehaviour
     // Show "hops" by increasing sprite size
     float scale = Mathf.Min(2.56f + body.velocity.magnitude / 20f, 3.5f);
     spriteRenderer.size = new Vector2(scale, scale);
+
+    // Desaturate frog to show hitpoints
+    spriteRenderer.material.SetVector("_HSLAAdjust",
+      new Vector4(0f, (health / maxHealth) - 1f, 0f, 0f));
   }
 
   void UpdateMutations()

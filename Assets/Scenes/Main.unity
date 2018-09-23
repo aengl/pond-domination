@@ -464,14 +464,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Frog1
       objectReference: {fileID: 0}
-    - target: {fileID: 7043171250848339181, guid: fde60a3a8817046249a408593cd7e9c8, type: 3}
-      propertyPath: m_Sprite
-      value: 
-      objectReference: {fileID: 21300000, guid: 16781252b2d444ee98005468793997bd, type: 3}
-    - target: {fileID: 7043171250848339181, guid: fde60a3a8817046249a408593cd7e9c8, type: 3}
-      propertyPath: m_Materials.Array.data[0]
-      value: 
-      objectReference: {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: fde60a3a8817046249a408593cd7e9c8, type: 3}
 --- !u!1 &1013690567
@@ -600,22 +592,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: Frog4
       objectReference: {fileID: 0}
-    - target: {fileID: 7043171250848339181, guid: fde60a3a8817046249a408593cd7e9c8, type: 3}
-      propertyPath: m_Sprite
-      value: 
-      objectReference: {fileID: 21300000, guid: cfe71d77126b84254924a8896ff988b4, type: 3}
     - target: {fileID: 6174159750932480175, guid: fde60a3a8817046249a408593cd7e9c8, type: 3}
       propertyPath: playerIndex
       value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 7043171250848339181, guid: fde60a3a8817046249a408593cd7e9c8, type: 3}
-      propertyPath: m_Size.x
-      value: 2.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 7043171250848339181, guid: fde60a3a8817046249a408593cd7e9c8, type: 3}
-      propertyPath: m_Size.y
-      value: 2.5
-      objectReference: {fileID: 0}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: cfe71d77126b84254924a8896ff988b4, type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: fde60a3a8817046249a408593cd7e9c8, type: 3}
 --- !u!1001 &1317384823
@@ -746,30 +730,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: Frog2
       objectReference: {fileID: 0}
-    - target: {fileID: 7043171250848339181, guid: fde60a3a8817046249a408593cd7e9c8, type: 3}
-      propertyPath: m_Materials.Array.data[0]
-      value: 
-      objectReference: {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
-    - target: {fileID: 7043171250848339181, guid: fde60a3a8817046249a408593cd7e9c8, type: 3}
-      propertyPath: m_Sprite
-      value: 
-      objectReference: {fileID: 21300000, guid: 35f5252ef194140a6bf20bf957a3f621, type: 3}
-    - target: {fileID: 7043171250848339181, guid: fde60a3a8817046249a408593cd7e9c8, type: 3}
-      propertyPath: m_DrawMode
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7043171250848339181, guid: fde60a3a8817046249a408593cd7e9c8, type: 3}
-      propertyPath: m_Size.x
-      value: 2.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 7043171250848339181, guid: fde60a3a8817046249a408593cd7e9c8, type: 3}
-      propertyPath: m_Size.y
-      value: 2.5
-      objectReference: {fileID: 0}
     - target: {fileID: 6174159750932480175, guid: fde60a3a8817046249a408593cd7e9c8, type: 3}
       propertyPath: playerIndex
       value: 2
       objectReference: {fileID: 0}
+    - target: {fileID: 7043171250848339181, guid: fde60a3a8817046249a408593cd7e9c8, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 35f5252ef194140a6bf20bf957a3f621, type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: fde60a3a8817046249a408593cd7e9c8, type: 3}
 --- !u!1 &1558100212
