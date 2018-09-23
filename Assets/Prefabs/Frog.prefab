@@ -58,6 +58,9 @@ MonoBehaviour:
   audioQuak:
   - {fileID: 8300000, guid: 45628aa765e8f44ddb4cb1714c86cb52, type: 3}
   - {fileID: 8300000, guid: 1dd1f3c963bd04b3c9ccb195b7c80031, type: 3}
+  audioSlurp:
+  - {fileID: 8300000, guid: fb087681e5eb74a90950ef1c5d4727c7, type: 3}
+  - {fileID: 8300000, guid: 6c66cbfc444964ba290b092e9b15b75d, type: 3}
   activeTongue: {fileID: 0}
   health: 0
   isStunned: 0

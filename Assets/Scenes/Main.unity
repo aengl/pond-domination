@@ -464,6 +464,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: Frog1
       objectReference: {fileID: 0}
+    - target: {fileID: 7043171250848339181, guid: fde60a3a8817046249a408593cd7e9c8, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 16781252b2d444ee98005468793997bd, type: 3}
+    - target: {fileID: 7043171250848339181, guid: fde60a3a8817046249a408593cd7e9c8, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: fde60a3a8817046249a408593cd7e9c8, type: 3}
 --- !u!1 &1013690567
@@ -737,7 +745,23 @@ PrefabInstance:
     - target: {fileID: 7043171250848339181, guid: fde60a3a8817046249a408593cd7e9c8, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
-      objectReference: {fileID: 2100000, guid: 107fa80d0d4724fd5a41a128b616a8d0, type: 2}
+      objectReference: {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
+    - target: {fileID: 7043171250848339181, guid: fde60a3a8817046249a408593cd7e9c8, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 4a5cca9c031d7493e86bd2a74b7f2a2e, type: 3}
+    - target: {fileID: 7043171250848339181, guid: fde60a3a8817046249a408593cd7e9c8, type: 3}
+      propertyPath: m_DrawMode
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7043171250848339181, guid: fde60a3a8817046249a408593cd7e9c8, type: 3}
+      propertyPath: m_Size.x
+      value: 2.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 7043171250848339181, guid: fde60a3a8817046249a408593cd7e9c8, type: 3}
+      propertyPath: m_Size.y
+      value: 2.5
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: fde60a3a8817046249a408593cd7e9c8, type: 3}
 --- !u!1 &1558100212

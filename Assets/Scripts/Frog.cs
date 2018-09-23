@@ -17,6 +17,9 @@ public class Frog : MonoBehaviour
   public Tongue tongue;
   public HashSet<Mutation> mutations = new HashSet<Mutation>();
   public AudioClip[] audioQuak;
+  public AudioClip[] audioSlurp;
+  public AudioClip[] audioHit;
+  public AudioClip[] audioDeath;
 
   public float Health
   {
@@ -225,6 +228,7 @@ public class Frog : MonoBehaviour
       activeTongue = Instantiate(tongue);
       activeTongue.Eject(this, body.mass, 10f,
         tongueEjectForce, tongueReturnForce);
+      Utils.PlayRandomClip(audioSource, audioSlurp);
     }
   }
 
