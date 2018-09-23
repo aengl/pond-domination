@@ -111,10 +111,6 @@ public class Frog : MonoBehaviour
     // Update all AIs with a slight offset
     InvokeRepeating("UpdateAI", .1f * (float)playerIndex, .4f);
     Invoke("Quak", Random.Range(5f, 10f));
-
-    // Frogs have individual pitch
-    minPitch = (float)playerIndex * .5f;
-    maxPitch = minPitch + .5f;
   }
 
   void FixedUpdate()
@@ -151,6 +147,10 @@ public class Frog : MonoBehaviour
       health += Time.deltaTime;
 
     health = Mathf.Min(maxHealth, health);
+
+    // Frog size determines pitch
+    minPitch = 1.5f / body.mass;
+    maxPitch = 2f / body.mass;
 
     // Die
     if (health <= .0f)
@@ -297,17 +297,18 @@ public class Frog : MonoBehaviour
     // Become stunned on collision
     isStunned = true;
     Utils.PlayRandomClip(audioSource, audioHit);
+
+    // Lose a bit of health
+    health -= 5f;
   }
 
   void OnTriggerEnter2D(Collider2D collision)
   {
-    if (collision.tag == "Pond")
-      isOutsidePond = !collision.GetComponent<Pond>().IsInPond(collider.bounds.center);
+    isOutsidePond &= collision.tag != "Pond";
   }
 
   void OnTriggerExit2D(Collider2D collision)
   {
-    if (collision.tag == "Pond")
-      isOutsidePond = !collision.GetComponent<Pond>().IsInPond(collider.bounds.center);
+    isOutsidePond |= collision.tag == "Pond";
   }
 }
