@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using System;
 
 public class Fly : MonoBehaviour
 {
@@ -19,17 +20,20 @@ public class Fly : MonoBehaviour
 
   void Start()
   {
+    // Pick random mutation
+    Array mutations = Enum.GetValues(typeof(Mutation));
+    mutation = (Mutation)mutations.GetValue(
+      UnityEngine.Random.Range(0, mutations.Length));
+
     InvokeRepeating("UpdateTarget", 0f, 1f);
-    audioSource.pitch = Random.Range(.2f, 3f);
+    audioSource.pitch = UnityEngine.Random.Range(2f, 4f);
     audioSource.Play();
   }
 
   void FixedUpdate()
   {
     if (stickingTo)
-    {
       body.position = stickingTo.position;
-    }
     else
     {
       Vector2 toTarget = target - body.position;
