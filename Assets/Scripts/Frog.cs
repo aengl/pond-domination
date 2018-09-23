@@ -16,6 +16,7 @@ public class Frog : MonoBehaviour
   public float tongueReturnForce;
   public Tongue tongue;
   public HashSet<Mutation> mutations = new HashSet<Mutation>();
+  public AudioClip[] audioQuak;
 
   public float Health
   {
@@ -58,6 +59,7 @@ public class Frog : MonoBehaviour
   }
 
   Rigidbody2D body;
+  AudioSource audioSource;
   SpriteRenderer spriteRenderer;
   Vector2? targetDirection = null;
 
@@ -82,6 +84,7 @@ public class Frog : MonoBehaviour
   void Awake()
   {
     body = GetComponent<Rigidbody2D>();
+    audioSource = GetComponent<AudioSource>();
     spriteRenderer = GetComponent<SpriteRenderer>();
   }
 
@@ -91,6 +94,7 @@ public class Frog : MonoBehaviour
 
     // Update all AIs with a slight offset
     InvokeRepeating("UpdateAI", .1f * (float)playerIndex, .4f);
+    Invoke("Quak", Random.Range(5f, 10f));
   }
 
   void FixedUpdate()
@@ -237,6 +241,12 @@ public class Frog : MonoBehaviour
 
     mutations.Clear();
     UpdateMutations();
+  }
+
+  void Quak()
+  {
+    Utils.PlayRandomClip(audioSource, audioQuak);
+    Invoke("Quak", Random.Range(5f, 10f));
   }
 
   void OnCollisionEnter2D(Collision2D collision)

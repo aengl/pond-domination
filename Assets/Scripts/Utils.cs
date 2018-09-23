@@ -25,4 +25,12 @@ public static class Utils
   {
     body.AddRelativeForce(Vector2.up * speed * timeDelta, ForceMode2D.Force);
   }
+
+  public static void PlayRandomClip(AudioSource audioSource, AudioClip[] clips,
+    float minPitch = .2f, float maxPitch = 3.0f)
+  {
+    int i = Random.Range(0, clips.Length);
+    audioSource.pitch = Random.Range(.5f, 1.5f);
+    audioSource.PlayOneShot(clips[i]);
+  }
 }
