@@ -3,7 +3,8 @@ using System.Collections.Generic;
 
 public enum Mutation
 {
-  Giant
+  Giant,
+  Fast
 }
 
 public class Frog : MonoBehaviour
@@ -67,6 +68,7 @@ public class Frog : MonoBehaviour
 
   Rigidbody2D body;
   AudioSource audioSource;
+  CapsuleCollider2D collider;
   SpriteRenderer spriteRenderer;
   Vector2? targetDirection = null;
 
@@ -93,6 +95,7 @@ public class Frog : MonoBehaviour
   {
     body = GetComponent<Rigidbody2D>();
     audioSource = GetComponent<AudioSource>();
+    collider = GetComponent<CapsuleCollider2D>();
     spriteRenderer = GetComponent<SpriteRenderer>();
   }
 
@@ -157,7 +160,7 @@ public class Frog : MonoBehaviour
     UpdateDrag();
 
     // Show "hops" by increasing sprite size
-    float scale = 2.56f + body.velocity.magnitude / 20f;
+    float scale = Mathf.Min(2.56f + body.velocity.magnitude / 20f, 3.5f);
     spriteRenderer.size = new Vector2(scale, scale);
   }
 
@@ -165,9 +168,9 @@ public class Frog : MonoBehaviour
   {
     // Scale
     if (mutations.Contains(Mutation.Giant))
-      transform.localScale = new Vector3(2f, 2f, 2f);
+      transform.localScale = new Vector3(1.2f, 1.2f, 1.2f);
     else
-      transform.localScale = new Vector3(.3f, .3f, .3f);
+      transform.localScale = new Vector3(.2f, .2f, .2f);
 
     // Mass
     body.mass = 1f;
@@ -178,11 +181,15 @@ public class Frog : MonoBehaviour
     turnSpeed = 5f;
     if (mutations.Contains(Mutation.Giant))
       turnSpeed /= 8f;
+    if (mutations.Contains(Mutation.Fast))
+      turnSpeed *= 4f;
 
     // Jump force
     jumpForce = 20f;
     if (mutations.Contains(Mutation.Giant))
-      jumpForce /= 8f;
+      jumpForce /= 10f;
+    if (mutations.Contains(Mutation.Fast))
+      jumpForce *= 5f;
 
     // Tongue eject force
     tongueEjectForce = 40f;
@@ -207,6 +214,13 @@ public class Frog : MonoBehaviour
     {
       drag = 30f;
       angularDrag = 12f;
+    }
+
+    // Fast frogs have higher drag and recover faster
+    if (mutations.Contains(Mutation.Fast))
+    {
+      drag *= 2f;
+      angularDrag *= 2f;
     }
 
     body.drag = drag;
@@ -277,11 +291,13 @@ public class Frog : MonoBehaviour
 
   void OnTriggerEnter2D(Collider2D collision)
   {
-    isOutsidePond &= collision.tag != "Pond";
+    if (collision.tag == "Pond")
+      isOutsidePond = !collision.GetComponent<Pond>().IsInPond(collider.bounds.center);
   }
 
   void OnTriggerExit2D(Collider2D collision)
   {
-    isOutsidePond |= collision.tag == "Pond";
+    if (collision.tag == "Pond")
+      isOutsidePond = !collision.GetComponent<Pond>().IsInPond(collider.bounds.center);
   }
 }

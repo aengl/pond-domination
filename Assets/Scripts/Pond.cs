@@ -15,6 +15,11 @@ public class Pond : MonoBehaviour
     return point;
   }
 
+  public bool IsInPond(Vector2 position)
+  {
+    return polygonCollider.OverlapPoint(position);
+  }
+
   void Awake()
   {
     polygonCollider = GetComponent<PolygonCollider2D>();
