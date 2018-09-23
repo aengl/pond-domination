@@ -103,7 +103,7 @@ public class Frog : MonoBehaviour
   void FixedUpdate()
   {
     // Update rotation
-    if (targetDirection != null)
+    if (CanRotate && targetDirection != null)
       Utils.RotateTowards(body, targetDirection.Value, turnSpeed, Time.deltaTime);
   }
 
