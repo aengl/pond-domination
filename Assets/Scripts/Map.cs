@@ -42,7 +42,7 @@ public class Map : MonoBehaviour
   void Spawn()
   {
     // Spawn flies
-    if (Random.value < .05f)
+    if (Random.value < .1f)
       SpawnFly();
   }
 
