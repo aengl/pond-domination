@@ -6,6 +6,7 @@ public class Fly : MonoBehaviour
 
   Pond pond;
   Rigidbody2D body;
+  AudioSource audioSource;
   Vector2 target = new Vector2();
   Rigidbody2D stickingTo = null;
 
@@ -13,11 +14,14 @@ public class Fly : MonoBehaviour
   {
     pond = FindObjectOfType<Pond>();
     body = GetComponent<Rigidbody2D>();
+    audioSource = GetComponent<AudioSource>();
   }
 
   void Start()
   {
     InvokeRepeating("UpdateTarget", 0f, 1f);
+    audioSource.pitch = Random.Range(.2f, 3f);
+    audioSource.Play();
   }
 
   void FixedUpdate()

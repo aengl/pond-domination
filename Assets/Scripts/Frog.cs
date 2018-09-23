@@ -16,6 +16,8 @@ public class Frog : MonoBehaviour
   public float tongueReturnForce;
   public Tongue tongue;
   public HashSet<Mutation> mutations = new HashSet<Mutation>();
+  public float minPitch = .8f;
+  public float maxPitch = 1.2f;
   public AudioClip[] audioQuak;
   public AudioClip[] audioSlurp;
   public AudioClip[] audioHit;
@@ -83,7 +85,7 @@ public class Frog : MonoBehaviour
   {
     mutations.Add(mutation);
     UpdateMutations();
-    Utils.PlayRandomClip(audioSource, audioPickup);
+    Utils.PlayRandomClip(audioSource, audioPickup, minPitch, maxPitch);
   }
 
   void Awake()
@@ -141,7 +143,7 @@ public class Frog : MonoBehaviour
     if (health <= .0f)
     {
       Respawn();
-      Utils.PlayRandomClip(audioSource, audioDeath);
+      Utils.PlayRandomClip(audioSource, audioDeath, minPitch, maxPitch);
     }
   }
 
@@ -160,7 +162,7 @@ public class Frog : MonoBehaviour
     if (mutations.Contains(Mutation.Giant))
       transform.localScale = new Vector3(2f, 2f, 2f);
     else
-      transform.localScale = new Vector3(.4f, .4f, .4f);
+      transform.localScale = new Vector3(.3f, .3f, .3f);
 
     // Mass
     body.mass = 1f;
@@ -233,7 +235,7 @@ public class Frog : MonoBehaviour
       activeTongue = Instantiate(tongue);
       activeTongue.Eject(this, body.mass, 10f,
         tongueEjectForce, tongueReturnForce);
-      Utils.PlayRandomClip(audioSource, audioSlurp);
+      Utils.PlayRandomClip(audioSource, audioSlurp, minPitch, maxPitch);
     }
   }
 
@@ -254,7 +256,7 @@ public class Frog : MonoBehaviour
 
   void Quak()
   {
-    Utils.PlayRandomClip(audioSource, audioQuak);
+    Utils.PlayRandomClip(audioSource, audioQuak, minPitch, maxPitch);
     Invoke("Quak", Random.Range(5f, 10f));
   }
 

@@ -77,6 +77,8 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 66283c7c8de0940569a9b56759dbbf06, type: 3}
   - {fileID: 8300000, guid: 54a5030d86f7b46c3ba2cb47ead2ccae, type: 3}
   - {fileID: 8300000, guid: b6328e145196640019185fbb29d5cf5c, type: 3}
+  - {fileID: 8300000, guid: a9c85514ad5a4418dbc163a14ed426ef, type: 3}
+  - {fileID: 8300000, guid: 0383ee68d7052475a84a8927be89fa59, type: 3}
   audioDeath:
   - {fileID: 8300000, guid: a8e071be154294a78b1addb75ac37942, type: 3}
   - {fileID: 8300000, guid: 9600a340226004e1596ced92108ab9ad, type: 3}
@@ -84,10 +86,14 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 00cbfa96c8f26432f84a746e40148d8b, type: 3}
   - {fileID: 8300000, guid: bd68701a415814a7daa04f808d1f6cc9, type: 3}
   - {fileID: 8300000, guid: 91b5c16a234894d5fb06516720f4140c, type: 3}
+  - {fileID: 8300000, guid: 760dff1772cbd4fb9b2f8c5e42635df2, type: 3}
+  - {fileID: 8300000, guid: 15b0085c3eebb431b9c7dc3d7d67ba97, type: 3}
+  - {fileID: 8300000, guid: 072a52e620b4345bfa41cbdb9dbb9830, type: 3}
   audioPickup:
   - {fileID: 8300000, guid: d0d46e79e6ec34ae69fd9f57a7d8a418, type: 3}
   - {fileID: 8300000, guid: 2e9b5b41dc5cf4be2a2f665c6d026497, type: 3}
   - {fileID: 8300000, guid: f4da2329416f34bdf8f50b631c1aa83d, type: 3}
+  - {fileID: 8300000, guid: 498e48bd7ccea4c7d8cf575ae7ee7881, type: 3}
   activeTongue: {fileID: 0}
   health: 0
   isStunned: 0
