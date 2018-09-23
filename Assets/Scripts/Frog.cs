@@ -16,13 +16,14 @@ public class Frog : MonoBehaviour
   public float tongueReturnForce;
   public Tongue tongue;
   public HashSet<Mutation> mutations = new HashSet<Mutation>();
-  public float minPitch = .8f;
-  public float maxPitch = 1.2f;
+  public float minPitch;
+  public float maxPitch;
   public AudioClip[] audioQuak;
   public AudioClip[] audioSlurp;
   public AudioClip[] audioHit;
   public AudioClip[] audioDeath;
   public AudioClip[] audioPickup;
+  public AudioClip[] audioJump;
 
   public float Health
   {
@@ -102,6 +103,10 @@ public class Frog : MonoBehaviour
     // Update all AIs with a slight offset
     InvokeRepeating("UpdateAI", .1f * (float)playerIndex, .4f);
     Invoke("Quak", Random.Range(5f, 10f));
+
+    // Frogs have individual pitch
+    minPitch = (float)playerIndex * .5f;
+    maxPitch = minPitch + .5f;
   }
 
   void FixedUpdate()
@@ -225,7 +230,10 @@ public class Frog : MonoBehaviour
   void Jump()
   {
     if (CanJump)
+    {
       body.AddRelativeForce(Vector2.up * jumpForce * ForceMultiplier, ForceMode2D.Impulse);
+      Utils.PlayRandomClip(audioSource, audioJump, minPitch, maxPitch, .25f);
+    }
   }
 
   void ShootTongue()
@@ -256,7 +264,7 @@ public class Frog : MonoBehaviour
 
   void Quak()
   {
-    Utils.PlayRandomClip(audioSource, audioQuak, minPitch, maxPitch);
+    Utils.PlayRandomClip(audioSource, audioQuak, minPitch, maxPitch, .5f);
     Invoke("Quak", Random.Range(5f, 10f));
   }
 

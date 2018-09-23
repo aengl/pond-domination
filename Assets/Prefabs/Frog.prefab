@@ -55,6 +55,8 @@ MonoBehaviour:
   tongueEjectForce: 0
   tongueReturnForce: 0
   tongue: {fileID: 4156581992355371621, guid: 3ca3a919273cf4f8a958c636262ab8e7, type: 3}
+  minPitch: 0
+  maxPitch: 0
   audioQuak:
   - {fileID: 8300000, guid: 45628aa765e8f44ddb4cb1714c86cb52, type: 3}
   - {fileID: 8300000, guid: 1dd1f3c963bd04b3c9ccb195b7c80031, type: 3}
@@ -94,6 +96,11 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 2e9b5b41dc5cf4be2a2f665c6d026497, type: 3}
   - {fileID: 8300000, guid: f4da2329416f34bdf8f50b631c1aa83d, type: 3}
   - {fileID: 8300000, guid: 498e48bd7ccea4c7d8cf575ae7ee7881, type: 3}
+  audioJump:
+  - {fileID: 8300000, guid: 1728bb9b742bf4e3e86bba15f1100f33, type: 3}
+  - {fileID: 8300000, guid: 09ff1f9cc2bb94d3faccc865911e66e5, type: 3}
+  - {fileID: 8300000, guid: 79e20419192fc4e95ae8cb9f7a2ae560, type: 3}
+  - {fileID: 8300000, guid: 1cb7086cca90a4abcb6ad9ded26bb00c, type: 3}
   activeTongue: {fileID: 0}
   health: 0
   isStunned: 0
