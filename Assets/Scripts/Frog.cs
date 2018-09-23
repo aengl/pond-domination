@@ -170,7 +170,7 @@ public class Frog : MonoBehaviour
 
     // Desaturate frog to show hitpoints
     spriteRenderer.material.SetVector("_HSLAAdjust",
-      new Vector4(0f, (health / maxHealth) - 1f, 0f, 0f));
+      new Vector4(0f, 1.5f * (health / maxHealth) - 1f, 0f, 0f));
   }
 
   void UpdateMutations()
@@ -275,6 +275,7 @@ public class Frog : MonoBehaviour
     var position = Random.insideUnitCircle * 3f;
 
     health = maxHealth;
+    isOutsidePond = false;
 
     body.velocity = new Vector2();
     body.angularVelocity = 0f;
