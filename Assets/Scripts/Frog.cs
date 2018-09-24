@@ -166,15 +166,15 @@ public class Frog : MonoBehaviour
     // Die
     if (health <= .0f)
     {
+      Utils.PlayRandomClip(audioSource, audioDeath, minPitch, maxPitch);
+
       // Only respawn if it's the last frog for this player
       int frogCount = GameObject.FindGameObjectsWithTag("Frog")
         .Count(frog => frog.GetComponent<Frog>().PlayerIndex == playerIndex);
       if (frogCount == 1)
         Respawn();
       else
-        Destroy(this);
-
-      Utils.PlayRandomClip(audioSource, audioDeath, minPitch, maxPitch);
+        Destroy(gameObject);
     }
   }
 
