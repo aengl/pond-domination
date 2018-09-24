@@ -1,11 +1,13 @@
 ﻿using UnityEngine;
 using System.Collections.Generic;
+using System.Linq;
 
 public enum Mutation
 {
   Giant,
   Blitz,
-  SuperTongue
+  SuperTongue,
+  Phantasm
 }
 
 public class Frog : MonoBehaviour
@@ -27,6 +29,11 @@ public class Frog : MonoBehaviour
   public AudioClip[] audioDeath;
   public AudioClip[] audioPickup;
   public AudioClip[] audioJump;
+
+  public int PlayerIndex
+  {
+    get { return playerIndex; }
+  }
 
   public float Health
   {
@@ -73,6 +80,7 @@ public class Frog : MonoBehaviour
     get { return Controls.TimeSinceInput(playerIndex) > 5f; }
   }
 
+  Pond pond;
   Rigidbody2D body;
   AudioSource audioSource;
   new CapsuleCollider2D collider;
@@ -100,6 +108,7 @@ public class Frog : MonoBehaviour
 
   void Awake()
   {
+    pond = FindObjectOfType<Pond>();
     body = GetComponent<Rigidbody2D>();
     audioSource = GetComponent<AudioSource>();
     collider = GetComponent<CapsuleCollider2D>();
@@ -157,7 +166,14 @@ public class Frog : MonoBehaviour
     // Die
     if (health <= .0f)
     {
-      Respawn();
+      // Only respawn if it's the last frog for this player
+      int frogCount = GameObject.FindGameObjectsWithTag("Frog")
+        .Count(frog => frog.GetComponent<Frog>().PlayerIndex == playerIndex);
+      if (frogCount == 1)
+        Respawn();
+      else
+        Destroy(this);
+
       Utils.PlayRandomClip(audioSource, audioDeath, minPitch, maxPitch);
     }
   }
@@ -218,6 +234,16 @@ public class Frog : MonoBehaviour
       tongueReturnForce /= 2f;
     if (mutations.Contains(Mutation.SuperTongue))
       tongueReturnForce *= 12f;
+
+    // Create mirror image
+    if (mutations.Contains(Mutation.Phantasm))
+    {
+      health = maxHealth;
+      mutations.Remove(Mutation.Phantasm);
+      var newFrog = Instantiate(this);
+      newFrog.tag = "Frog";
+      newFrog.body.position = pond.GetRandomPoint();
+    }
   }
 
   void UpdateDrag()
@@ -283,15 +309,13 @@ public class Frog : MonoBehaviour
 
   void Respawn()
   {
-    var position = Random.insideUnitCircle * 3f;
-
     health = maxHealth;
     isOutsidePond = false;
 
     body.velocity = new Vector2();
     body.angularVelocity = 0f;
     body.rotation = Random.Range(0f, 360f);
-    body.position = new Vector3(position.x, position.y, 0f);
+    body.position = pond.GetRandomPoint();
 
     mutations.Clear();
     UpdateMutations();
