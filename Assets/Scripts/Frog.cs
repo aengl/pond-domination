@@ -72,7 +72,7 @@ public class Frog : MonoBehaviour
 
   public bool CanUseAbilities
   {
-    get { return CanJump; }
+    get { return !IsStunned && activeTongue == null; }
   }
 
   public bool IsAIControlled
