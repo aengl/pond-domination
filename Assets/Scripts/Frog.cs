@@ -60,6 +60,11 @@ public class Frog : MonoBehaviour
     get { return !IsStunned; }
   }
 
+  public bool IsOutsidePond
+  {
+    get { return isOutsidePond; }
+  }
+
   public bool CanJump
   {
     get
@@ -121,7 +126,7 @@ public class Frog : MonoBehaviour
 
     // Update all AIs with a slight offset
     InvokeRepeating("UpdateAI", .1f * (float)playerIndex, .4f);
-    Invoke("Quak", Random.Range(5f, 10f));
+    Invoke("Quak", 0f);
   }
 
   void FixedUpdate()
@@ -170,13 +175,7 @@ public class Frog : MonoBehaviour
       if (frogCount == 1)
         Respawn();
       else
-      {
-        // Remove tongue
-        if (activeTongue != null)
-          Destroy(activeTongue);
-
         Destroy(gameObject);
-      }
     }
   }
 
@@ -304,7 +303,7 @@ public class Frog : MonoBehaviour
     if (CanJump)
     {
       body.AddRelativeForce(Vector2.up * jumpForce * ForceMultiplier, ForceMode2D.Impulse);
-      Utils.PlayRandomClip(audioSource, audioJump, minPitch, maxPitch, .25f);
+      Utils.PlayRandomClip(audioSource, audioJump, minPitch, maxPitch, .2f);
     }
   }
 
@@ -335,7 +334,7 @@ public class Frog : MonoBehaviour
 
   void Quak()
   {
-    Utils.PlayRandomClip(audioSource, audioQuak, minPitch, maxPitch, .5f);
+    Utils.PlayRandomClip(audioSource, audioQuak, minPitch, maxPitch, .6f);
     Invoke("Quak", Random.Range(3f, 5f));
   }
 

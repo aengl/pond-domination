@@ -47,13 +47,18 @@ public class Tongue : MonoBehaviour
     body.AddRelativeForce(direction * ejectForce * body.mass, ForceMode2D.Impulse);
   }
 
+  void Update()
+  {
+    // Self-destruct if the parent frog is gone
+    if (frog == null)
+      Destroy(gameObject);
+  }
+
   void FixedUpdate()
   {
     // Pull back tongue once it stops
     if (body.velocity.magnitude < .1f)
-    {
       isReturning = true;
-    }
 
     // Move back to frog mouth
     if (isReturning)
@@ -63,9 +68,7 @@ public class Tongue : MonoBehaviour
 
       // Remove object once we're close to the frog mouth again
       if (back.magnitude < .1f)
-      {
         Destroy(gameObject);
-      }
     }
   }
 

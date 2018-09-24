@@ -298,8 +298,9 @@ GameObject:
   - component: {fileID: 6119019199792490908}
   - component: {fileID: 4437332196219288928}
   - component: {fileID: 6203337835027582067}
+  - component: {fileID: 2392395318190957437}
   m_Layer: 0
-  m_Name: Particle System
+  m_Name: RippleEffect
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4984,3 +4985,15 @@ ParticleSystemRenderer:
   m_Mesh2: {fileID: 0}
   m_Mesh3: {fileID: 0}
   m_MaskInteraction: 0
+--- !u!114 &2392395318190957437
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7183774233485926091}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8fbf73a54990b4905bd8a5a88b14e410, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
