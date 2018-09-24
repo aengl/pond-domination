@@ -26,7 +26,7 @@ public class Fly : MonoBehaviour
       UnityEngine.Random.Range(0, mutations.Length));
 
     InvokeRepeating("UpdateTarget", 0f, 1f);
-    audioSource.pitch = UnityEngine.Random.Range(2f, 4f);
+    audioSource.pitch = UnityEngine.Random.Range(.8f, 1.8f);
     audioSource.Play();
   }
 

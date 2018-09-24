@@ -159,10 +159,6 @@ public class Frog : MonoBehaviour
 
     health = Mathf.Min(maxHealth, health);
 
-    // Frog size determines pitch
-    minPitch = 1.5f / body.mass;
-    maxPitch = 2f / body.mass;
-
     // Die
     if (health <= .0f)
     {
@@ -174,7 +170,13 @@ public class Frog : MonoBehaviour
       if (frogCount == 1)
         Respawn();
       else
+      {
+        // Remove tongue
+        if (activeTongue != null)
+          Destroy(activeTongue);
+
         Destroy(gameObject);
+      }
     }
   }
 
@@ -198,6 +200,15 @@ public class Frog : MonoBehaviour
       transform.localScale = new Vector3(1.2f, 1.2f, 1.2f);
     else
       transform.localScale = new Vector3(.2f, .2f, .2f);
+
+    // Frog size determines pitch
+    minPitch = .9f;
+    maxPitch = 1.2f;
+    if (mutations.Contains(Mutation.Giant))
+    {
+      minPitch = .6f;
+      maxPitch = .9f;
+    }
 
     // Mass
     body.mass = 1f;
@@ -235,13 +246,14 @@ public class Frog : MonoBehaviour
     if (mutations.Contains(Mutation.SuperTongue))
       tongueReturnForce *= 12f;
 
-    // Create mirror image
+    // Create frog clone
     if (mutations.Contains(Mutation.Phantasm))
     {
       health = maxHealth;
       mutations.Remove(Mutation.Phantasm);
       var newFrog = Instantiate(this);
       newFrog.tag = "Frog";
+      newFrog.mutations = mutations;
       newFrog.body.position = pond.GetRandomPoint();
     }
   }
@@ -254,7 +266,7 @@ public class Frog : MonoBehaviour
     if (isStunned)
     {
       drag = 3f;
-      angularDrag = .5f;
+      angularDrag = 1f;
     }
     else if (isOutsidePond)
     {
@@ -265,7 +277,7 @@ public class Frog : MonoBehaviour
     // Fast frogs have higher drag and recover faster
     if (mutations.Contains(Mutation.Blitz))
     {
-      drag *= 2f;
+      drag *= 4f;
       angularDrag *= 2f;
     }
 
@@ -324,7 +336,7 @@ public class Frog : MonoBehaviour
   void Quak()
   {
     Utils.PlayRandomClip(audioSource, audioQuak, minPitch, maxPitch, .5f);
-    Invoke("Quak", Random.Range(5f, 10f));
+    Invoke("Quak", Random.Range(3f, 5f));
   }
 
   void OnCollisionEnter2D(Collision2D collision)
