@@ -9,11 +9,12 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5462984973521646669}
-  - component: {fileID: 5462984973521646668}
   - component: {fileID: 5462984973521646640}
+  - component: {fileID: 5462984973521646668}
   - component: {fileID: 5462984973521646643}
   - component: {fileID: 5462984973521646642}
   - component: {fileID: 36451884969819733}
+  - component: {fileID: 4800833679699962758}
   m_Layer: 0
   m_Name: Fly
   m_TagString: Untagged
@@ -35,6 +36,28 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &5462984973521646640
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5462984973521646671}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 043b4ef1bc11e475d84f6b12237b16ff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  mutation: 0
+  clips:
+  - {fileID: 8300000, guid: 2bc1a459b72c74e569f0a9e926d3c33f, type: 3}
+  - {fileID: 8300000, guid: 11554538fc28746efb7792f54ed52f48, type: 3}
+  - {fileID: 8300000, guid: 76119968ba0f442c4abec66415a022e3, type: 3}
+  - {fileID: 8300000, guid: e00a5457c460345008781b8223301048, type: 3}
+  - {fileID: 8300000, guid: 3020cfd87f7f945a0a43437108e47590, type: 3}
+  - {fileID: 8300000, guid: d7c1086380f434af68c0634ebd47fccf, type: 3}
+  - {fileID: 8300000, guid: e033f66908ec24983b6ced07fc833245, type: 3}
+  - {fileID: 8300000, guid: c969b9e915c9748468d753d52323132b, type: 3}
 --- !u!212 &5462984973521646668
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -52,7 +75,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: 271720a9348634fe3acf2d6537f48615, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -70,7 +93,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 206133477
-  m_SortingLayer: 4
+  m_SortingLayer: 5
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: b2bebc52c4f2a4158a12fdeb9bd5f2bb, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -83,19 +106,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &5462984973521646640
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5462984973521646671}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 043b4ef1bc11e475d84f6b12237b16ff, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  mutation: 0
 --- !u!50 &5462984973521646643
 Rigidbody2D:
   serializedVersion: 4
@@ -229,3 +239,15 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!122 &4800833679699962758
+Halo:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5462984973521646671}
+  m_Enabled: 1
+  m_Color:
+    serializedVersion: 2
+    rgba: 4294967295
+  m_Size: 0.2

@@ -10,6 +10,7 @@ public class Fly : MonoBehaviour
   AudioSource audioSource;
   Vector2 target = new Vector2();
   Rigidbody2D stickingTo = null;
+  public AudioClip[] clips;
 
   void Awake()
   {
@@ -22,10 +23,18 @@ public class Fly : MonoBehaviour
   {
     // Pick random mutation
     Array mutations = Enum.GetValues(typeof(Mutation));
-    mutation = (Mutation)mutations.GetValue(
-      UnityEngine.Random.Range(0, mutations.Length));
+    int mutationIndex = UnityEngine.Random.Range(0, mutations.Length);
+    mutation = (Mutation)mutations.GetValue(mutationIndex);
 
+    // Update shader based on mutation
+    GetComponent<SpriteRenderer>().material.SetVector("_HSLAAdjust",
+      new Vector4((float)mutationIndex * .1f, .5f, -.2f, 0f));
+
+    // Pick random waypoints
     InvokeRepeating("UpdateTarget", 0f, 1f);
+
+    // Play fly sound
+    audioSource.clip = Utils.GetRandomClip(clips);
     audioSource.pitch = UnityEngine.Random.Range(.8f, 1.8f);
     audioSource.Play();
   }
