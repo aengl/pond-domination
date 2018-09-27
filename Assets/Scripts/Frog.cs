@@ -122,8 +122,6 @@ public class Frog : MonoBehaviour
   {
     Respawn();
 
-    Mutate(Mutation.Bomberman);
-
     // Update all AIs with a slight offset
     InvokeRepeating("UpdateAI", .1f * (float)playerIndex, .4f);
     InvokeRepeating("Poop", .25f * (float)playerIndex, 2f);
