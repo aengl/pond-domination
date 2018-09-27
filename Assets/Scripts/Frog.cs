@@ -313,9 +313,10 @@ public class Frog : MonoBehaviour
   {
     if (CanUseAbilities)
     {
+      float delay = mutations.Contains(Mutation.SuperTongue) ? 0.4f : 0f;
       activeTongue = Instantiate(tongue);
       activeTongue.Eject(this, body.mass, tongueDrag,
-        tongueEjectForce, tongueReturnForce);
+        tongueEjectForce, tongueReturnForce, delay);
       Utils.PlayRandomClip(audioSource, audioSlurp, minPitch, maxPitch);
     }
   }

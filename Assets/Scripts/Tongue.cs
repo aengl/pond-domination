@@ -12,12 +12,16 @@ public class Tongue : MonoBehaviour
   [SerializeField]
   bool isReturning = false;
 
+  [SerializeField]
+  float returnDelay;
+
   public void Eject(Frog frog, float mass, float drag,
-    float ejectForce, float returnForce)
+    float ejectForce, float returnForce, float returnDelay)
   {
     this.frog = frog;
     this.ejectForce = ejectForce * Mathf.Sqrt(mass);
     this.returnForce = returnForce * Mathf.Sqrt(mass) * 100f;
+    this.returnDelay = returnDelay;
 
     body.mass = mass;
     body.drag = drag;
@@ -58,7 +62,12 @@ public class Tongue : MonoBehaviour
   {
     // Pull back tongue once it stops
     if (body.velocity.magnitude < .1f)
-      isReturning = true;
+    {
+      if (returnDelay <= 0f)
+        isReturning = true;
+      else
+        returnDelay -= Time.fixedDeltaTime;
+    }
 
     // Move back to frog mouth
     if (isReturning)

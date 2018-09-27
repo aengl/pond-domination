@@ -50,7 +50,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   timeToExplosion: 3
   areaOfEffect: 7.5
-  damage: 100
+  damage: 200
   explosionForce: 500
   scale: 0.2
   exploded: 0
