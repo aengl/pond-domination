@@ -3,9 +3,10 @@
 public class Bomb : MonoBehaviour
 {
   public float timeToExplosion = 3f;
-  public float areaOfEffect = 1.5f;
-  public float damage = 25f;
-  public float explosionForce = 100f;
+  public float areaOfEffect = 7.5f;
+  public float damage = 100f;
+  public float explosionForce = 500f;
+  public float scale = .2f;
 
   [SerializeField]
   bool exploded = false;
@@ -22,13 +23,10 @@ public class Bomb : MonoBehaviour
     var explosion = GetComponent<ParticleSystem>();
     explosion.Play();
 
-    // Self-destruct after particle effect
-    Destroy(gameObject, explosion.main.duration);
-
     // Affect game objects in area of efffect
     Vector2 position = GetComponent<Rigidbody2D>().position;
-    Collider2D[] objectsInRange = Physics2D.OverlapCircleAll(position, areaOfEffect);
-    Debug.Log(objectsInRange.Length);
+    float scaledAOE = areaOfEffect * scale;
+    Collider2D[] objectsInRange = Physics2D.OverlapCircleAll(position, scaledAOE);
     foreach (var c in objectsInRange)
     {
       // Knock stuff around
@@ -37,19 +35,27 @@ public class Bomb : MonoBehaviour
       {
         Vector2 distance = body.position - position;
         Vector2 force = distance.normalized;
-        float distanceMultiplier = 1.0f - distance.magnitude / areaOfEffect;
+        float distanceMultiplier = 1.0f - distance.magnitude / scaledAOE;
         body.AddForce(
-          force * explosionForce * distanceMultiplier,
+          force * explosionForce * scale * distanceMultiplier,
           ForceMode2D.Impulse);
 
         // Notify objects that someone has set upon them the bomb
-        c.SendMessage("OnExplosion", damage * distanceMultiplier,
-          SendMessageOptions.RequireReceiver);
+        c.SendMessage("OnExplosion", damage * scale * distanceMultiplier,
+          SendMessageOptions.DontRequireReceiver);
       }
     }
 
     // Prevent this method from being called again
     exploded = true;
+
+    // Self-destruct after particle effect
+    Destroy(gameObject, explosion.main.duration);
+  }
+
+  void Start()
+  {
+    transform.localScale = new Vector3(scale, scale, scale);
   }
 
   void Update()

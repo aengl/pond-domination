@@ -49,9 +49,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   timeToExplosion: 3
-  areaOfEffect: 2.5
-  damage: 25
-  explosionForce: 100
+  areaOfEffect: 7.5
+  damage: 100
+  explosionForce: 500
+  scale: 0.2
   exploded: 0
 --- !u!212 &1952499787512811099
 SpriteRenderer:

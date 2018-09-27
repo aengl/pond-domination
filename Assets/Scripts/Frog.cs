@@ -103,6 +103,7 @@ public class Frog : MonoBehaviour
 
   public void Mutate(Mutation mutation)
   {
+    health = maxHealth;
     mutations.Add(mutation);
     UpdateMutations();
     Utils.PlayRandomClip(audioSource, audioPickup, minPitch, maxPitch);
@@ -248,7 +249,6 @@ public class Frog : MonoBehaviour
     // Create frog clone
     // if (mutations.Contains(Mutation.Phantasm))
     // {
-    //   health = maxHealth;
     //   mutations.Remove(Mutation.Phantasm);
     //   var newFrog = Instantiate(this);
     //   newFrog.tag = "Frog";
@@ -345,6 +345,9 @@ public class Frog : MonoBehaviour
       // Poop bombs
       Instantiate(bomb);
       bomb.transform.position = transform.position;
+
+      if (mutations.Contains(Mutation.Giant))
+        bomb.scale = .5f;
     }
   }
 
