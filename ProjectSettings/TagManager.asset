@@ -7,6 +7,7 @@ TagManager:
   - Frog
   - Tongue
   - Pond
+  - Wall
   layers:
   - Default
   - TransparentFX
@@ -46,6 +47,9 @@ TagManager:
     locked: 0
   - name: Water Particles
     uniqueID: 1238598257
+    locked: 0
+  - name: Bombs
+    uniqueID: 3945140211
     locked: 0
   - name: Frog
     uniqueID: 3149780849

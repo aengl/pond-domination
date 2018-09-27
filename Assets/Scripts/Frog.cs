@@ -7,7 +7,8 @@ public enum Mutation
   Giant,
   Blitz,
   SuperTongue,
-  Phantasm
+  // Phantasm,
+  Bomberman
 }
 
 public class Frog : MonoBehaviour
@@ -19,7 +20,6 @@ public class Frog : MonoBehaviour
   public float tongueDrag;
   public float tongueEjectForce;
   public float tongueReturnForce;
-  public Tongue tongue;
   public HashSet<Mutation> mutations = new HashSet<Mutation>();
   public float minPitch;
   public float maxPitch;
@@ -29,11 +29,8 @@ public class Frog : MonoBehaviour
   public AudioClip[] audioDeath;
   public AudioClip[] audioPickup;
   public AudioClip[] audioJump;
-
-  public int PlayerIndex
-  {
-    get { return playerIndex; }
-  }
+  public Tongue tongue;
+  public Bomb bomb;
 
   public float Health
   {
@@ -77,7 +74,7 @@ public class Frog : MonoBehaviour
 
   public bool CanUseAbilities
   {
-    get { return !IsStunned && activeTongue == null; }
+    get { return activeTongue == null; }
   }
 
   public bool IsAIControlled
@@ -124,8 +121,11 @@ public class Frog : MonoBehaviour
   {
     Respawn();
 
+    Mutate(Mutation.Bomberman);
+
     // Update all AIs with a slight offset
     InvokeRepeating("UpdateAI", .1f * (float)playerIndex, .4f);
+    InvokeRepeating("Poop", .25f * (float)playerIndex, 2f);
     Invoke("Quak", 0f);
   }
 
@@ -171,7 +171,7 @@ public class Frog : MonoBehaviour
 
       // Only respawn if it's the last frog for this player
       int frogCount = GameObject.FindGameObjectsWithTag("Frog")
-        .Count(frog => frog.GetComponent<Frog>().PlayerIndex == playerIndex);
+        .Count(frog => frog.GetComponent<Frog>().playerIndex == playerIndex);
       if (frogCount == 1)
         Respawn();
       else
@@ -246,15 +246,15 @@ public class Frog : MonoBehaviour
       tongueReturnForce *= 12f;
 
     // Create frog clone
-    if (mutations.Contains(Mutation.Phantasm))
-    {
-      health = maxHealth;
-      mutations.Remove(Mutation.Phantasm);
-      var newFrog = Instantiate(this);
-      newFrog.tag = "Frog";
-      newFrog.mutations = mutations;
-      newFrog.body.position = pond.GetRandomPoint();
-    }
+    // if (mutations.Contains(Mutation.Phantasm))
+    // {
+    //   health = maxHealth;
+    //   mutations.Remove(Mutation.Phantasm);
+    //   var newFrog = Instantiate(this);
+    //   newFrog.tag = "Frog";
+    //   newFrog.mutations = mutations;
+    //   newFrog.body.position = pond.GetRandomPoint();
+    // }
   }
 
   void UpdateDrag()
@@ -338,14 +338,33 @@ public class Frog : MonoBehaviour
     Invoke("Quak", Random.Range(3f, 5f));
   }
 
+  void Poop()
+  {
+    if (mutations.Contains(Mutation.Bomberman))
+    {
+      // Poop bombs
+      Instantiate(bomb);
+      bomb.transform.position = transform.position;
+    }
+  }
+
+  void OnExplosion(float damage)
+  {
+    health -= damage;
+    isStunned = true;
+    Utils.PlayRandomClip(audioSource, audioHit);
+  }
+
   void OnCollisionEnter2D(Collision2D collision)
   {
     // Become stunned on collision
     isStunned = true;
-    Utils.PlayRandomClip(audioSource, audioHit);
 
-    // Lose a bit of health
-    health -= 5f;
+    // Lose a bit of health when colliding with walls
+    if (collision.gameObject.tag == "Wall")
+      health -= 5f;
+
+    Utils.PlayRandomClip(audioSource, audioHit);
   }
 
   void OnTriggerEnter2D(Collider2D collision)
