@@ -7,7 +7,6 @@ public enum Mutation
   Giant,
   Blitz,
   SuperTongue,
-  // Phantasm,
   Bomberman
 }
 
@@ -171,14 +170,7 @@ public class Frog : MonoBehaviour
     if (health <= .0f)
     {
       Utils.PlayRandomClip(audioSource, audioDeath, minPitch, maxPitch);
-
-      // Only respawn if it's the last frog for this player
-      int frogCount = GameObject.FindGameObjectsWithTag("Frog")
-        .Count(frog => frog.GetComponent<Frog>().playerIndex == playerIndex);
-      if (frogCount == 1)
-        Respawn();
-      else
-        Destroy(gameObject);
+      Respawn();
     }
   }
 
@@ -247,16 +239,6 @@ public class Frog : MonoBehaviour
       tongueReturnForce /= 2f;
     if (mutations.Contains(Mutation.SuperTongue))
       tongueReturnForce *= 12f;
-
-    // Create frog clone
-    // if (mutations.Contains(Mutation.Phantasm))
-    // {
-    //   mutations.Remove(Mutation.Phantasm);
-    //   var newFrog = Instantiate(this);
-    //   newFrog.tag = "Frog";
-    //   newFrog.mutations = mutations;
-    //   newFrog.body.position = pond.GetRandomPoint();
-    // }
   }
 
   void UpdateDrag()
