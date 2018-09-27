@@ -103,10 +103,14 @@ public class Frog : MonoBehaviour
 
   public void Mutate(Mutation mutation)
   {
-    health = maxHealth;
     mutations.Add(mutation);
     UpdateMutations();
     Utils.PlayRandomClip(audioSource, audioPickup, minPitch, maxPitch);
+  }
+
+  public void Heal()
+  {
+    health = maxHealth;
   }
 
   void Awake()
@@ -341,11 +345,13 @@ public class Frog : MonoBehaviour
     if (mutations.Contains(Mutation.Bomberman))
     {
       // Poop bombs
-      Instantiate(bomb);
-      bomb.transform.position = transform.position;
+      var bombInstance = Instantiate(bomb);
+      Vector2 offset = body.GetRelativeVector(Vector2.down)
+        * collider.size.y * transform.localScale.y;
+      bombInstance.transform.position = body.position + offset;
 
       if (mutations.Contains(Mutation.Giant))
-        bomb.scale = .5f;
+        bombInstance.scale = .5f;
     }
   }
 
@@ -363,7 +369,12 @@ public class Frog : MonoBehaviour
 
     // Lose a bit of health when colliding with walls
     if (collision.gameObject.tag == "Wall")
+      health -= 10f;
+    if (collision.gameObject.tag == "Tongue")
       health -= 5f;
+    if (collision.gameObject.tag == "Frog"
+      && mutations.Contains(Mutation.Bomberman))
+      collision.gameObject.GetComponent<Frog>().Mutate(Mutation.Bomberman);
 
     Utils.PlayRandomClip(audioSource, audioHit);
   }

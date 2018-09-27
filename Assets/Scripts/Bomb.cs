@@ -4,7 +4,7 @@ public class Bomb : MonoBehaviour
 {
   public float timeToExplosion = 3f;
   public float areaOfEffect = 7.5f;
-  public float damage = 100f;
+  public float damage = 200f;
   public float explosionForce = 500f;
   public float scale = .2f;
 

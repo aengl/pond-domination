@@ -47,7 +47,7 @@ public class Fly : MonoBehaviour
     {
       Vector2 toTarget = target - body.position;
       Utils.RotateTowards(body, toTarget, 1f, Time.fixedDeltaTime);
-      Utils.MoveForward(body, 10f, Time.fixedDeltaTime);
+      Utils.MoveForward(body, 1000f, Time.fixedDeltaTime);
       Debug.DrawLine(body.position, target, Color.white);
     }
   }
@@ -67,8 +67,11 @@ public class Fly : MonoBehaviour
     else if (collision.tag == "Frog")
     {
       // Power-up frog
+      var frog = collision.GetComponent<Frog>();
+      frog.Mutate(mutation);
+      frog.Heal();
+
       Destroy(gameObject);
-      collision.GetComponent<Frog>().Mutate(mutation);
     }
   }
 }
