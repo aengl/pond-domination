@@ -584,7 +584,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 20, y: 14}
+  m_Size: {x: 24, y: 14}
   m_EdgeRadius: 0
 --- !u!4 &1013690570
 Transform:
@@ -694,7 +694,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1191367022617778109, guid: 54dfbb7079c9e42c7bb0306782cc3f49, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -15
+      value: -17
       objectReference: {fileID: 0}
     - target: {fileID: 1191367022617778109, guid: 54dfbb7079c9e42c7bb0306782cc3f49, type: 3}
       propertyPath: m_LocalPosition.y
@@ -754,7 +754,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1191367022617778108, guid: 54dfbb7079c9e42c7bb0306782cc3f49, type: 3}
       propertyPath: m_SortingLayer
-      value: 6
+      value: 7
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 54dfbb7079c9e42c7bb0306782cc3f49, type: 3}
@@ -1004,7 +1004,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1191367022617778109, guid: 54dfbb7079c9e42c7bb0306782cc3f49, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 15
+      value: 17
       objectReference: {fileID: 0}
     - target: {fileID: 1191367022617778109, guid: 54dfbb7079c9e42c7bb0306782cc3f49, type: 3}
       propertyPath: m_LocalPosition.y
