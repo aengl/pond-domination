@@ -19,15 +19,17 @@ public class Bomb : MonoBehaviour
     // Prevent this method from being called again
     exploded = true;
 
-    // Don't render sprite anymore
-    GetComponent<SpriteRenderer>().enabled = false;
+    // Remove renderer, rigid body and collider
+    Destroy(GetComponent<SpriteRenderer>());
+    Destroy(GetComponent<Rigidbody2D>());
+    Destroy(GetComponent<Collider2D>());
 
     // Start explosion particle effect
     var explosion = GetComponent<ParticleSystem>();
     explosion.Play();
 
-    // Affect game objects in area of efffect
-    Vector2 position = GetComponent<Rigidbody2D>().position;
+    // Affect game objects in area of effect
+    Vector2 position = transform.position;
     float scaledAOE = areaOfEffect * scale;
     Collider2D[] objectsInRange = Physics2D.OverlapCircleAll(position, scaledAOE);
     foreach (var c in objectsInRange)

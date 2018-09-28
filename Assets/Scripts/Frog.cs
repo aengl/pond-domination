@@ -352,6 +352,9 @@ public class Frog : MonoBehaviour
 
   void Poop()
   {
+    if (isDying)
+      return;
+
     if (mutations.Contains(Mutation.Bomberman))
     {
       var giant = mutations.Contains(Mutation.Giant);
@@ -374,6 +377,7 @@ public class Frog : MonoBehaviour
   IEnumerator Die()
   {
     body.Sleep();
+    collider.enabled = false;
 
     Color c = spriteRenderer.material.color;
 
@@ -396,6 +400,7 @@ public class Frog : MonoBehaviour
     c.a = 1.0f;
     spriteRenderer.material.color = c;
     body.WakeUp();
+    collider.enabled = true;
     Respawn();
   }
 
@@ -408,6 +413,9 @@ public class Frog : MonoBehaviour
 
   void OnCollisionEnter2D(Collision2D collision)
   {
+    if (isDying)
+      return;
+
     // Become stunned on collision
     isStunned = true;
 
