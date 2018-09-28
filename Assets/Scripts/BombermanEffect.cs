@@ -11,6 +11,12 @@ public class BombermanEffect : MonoBehaviour
     particleSystem = GetComponent<ParticleSystem>();
   }
 
+  void Start()
+  {
+    var main = particleSystem.main;
+    main.startColor = frog.color;
+  }
+
   void Update()
   {
     var emission = particleSystem.emission;

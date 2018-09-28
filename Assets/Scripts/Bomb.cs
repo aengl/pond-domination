@@ -16,6 +16,9 @@ public class Bomb : MonoBehaviour
     if (exploded)
       return;
 
+    // Prevent this method from being called again
+    exploded = true;
+
     // Don't render sprite anymore
     GetComponent<SpriteRenderer>().enabled = false;
 
@@ -46,11 +49,13 @@ public class Bomb : MonoBehaviour
       }
     }
 
-    // Prevent this method from being called again
-    exploded = true;
-
     // Self-destruct after particle effect
     Destroy(gameObject, explosion.main.duration);
+  }
+
+  void OnExplosion()
+  {
+    Explode();
   }
 
   void Start()

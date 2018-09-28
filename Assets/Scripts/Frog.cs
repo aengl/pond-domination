@@ -12,6 +12,7 @@ public enum Mutation
 
 public class Frog : MonoBehaviour
 {
+  public Color color;
   public int playerIndex = 1;
   public float maxHealth = 100f;
   public float turnSpeed;
@@ -127,7 +128,7 @@ public class Frog : MonoBehaviour
 
     // Update all AIs with a slight offset
     InvokeRepeating("UpdateAI", .1f * (float)playerIndex, .4f);
-    InvokeRepeating("Poop", .25f * (float)playerIndex, 2f);
+    InvokeRepeating("Poop", .1f * (float)playerIndex, .5f);
     Invoke("Quak", 0f);
   }
 
@@ -315,6 +316,9 @@ public class Frog : MonoBehaviour
 
     mutations.Clear();
     UpdateMutations();
+
+    Mutate(Mutation.Blitz);
+    Mutate(Mutation.Bomberman);
   }
 
   void Quak()
@@ -327,14 +331,18 @@ public class Frog : MonoBehaviour
   {
     if (mutations.Contains(Mutation.Bomberman))
     {
-      // Poop bombs
-      var bombInstance = Instantiate(bomb);
-      Vector2 offset = body.GetRelativeVector(Vector2.down)
-        * collider.size.y * transform.localScale.y;
-      bombInstance.transform.position = body.position + offset;
+      var giant = mutations.Contains(Mutation.Giant);
+      var numBombs = giant ? 2 : Random.Range(2, 6);
 
-      if (mutations.Contains(Mutation.Giant))
-        bombInstance.scale = .5f;
+      // Poop bombs
+      for (int i = 0; i < numBombs; i++)
+      {
+        var bombInstance = Instantiate(bomb);
+        Vector2 offset = body.GetRelativeVector(Vector2.down)
+          * collider.size.y * transform.localScale.y * 1.2f;
+        bombInstance.transform.position = body.position + offset;
+        bombInstance.scale = giant ? .5f : .2f;
+      }
     }
   }
 

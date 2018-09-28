@@ -51,6 +51,9 @@ TagManager:
   - name: Bombs
     uniqueID: 3945140211
     locked: 0
+  - name: Farts
+    uniqueID: 4153320193
+    locked: 0
   - name: Frog
     uniqueID: 3149780849
     locked: 0
