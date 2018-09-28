@@ -33,9 +33,8 @@ public static class Utils
   }
 
   public static void PlayRandomClip(AudioSource audioSource, AudioClip[] clips,
-    float minPitch = .5f, float maxPitch = 1.5f, float volume = 1.0f)
+    float minPitch = .7f, float maxPitch = 1.3f)
   {
-    audioSource.volume = volume;
     audioSource.pitch = Random.Range(minPitch, maxPitch);
     audioSource.PlayOneShot(GetRandomClip(clips));
   }

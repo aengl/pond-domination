@@ -84,7 +84,9 @@ public class Frog : MonoBehaviour
 
   Pond pond;
   Rigidbody2D body;
-  AudioSource audioSource;
+  AudioSource audioSourceHigh;
+  AudioSource audioSourceMedium;
+  AudioSource audioSourceLow;
   new CapsuleCollider2D collider;
   SpriteRenderer spriteRenderer;
   Vector2? targetDirection = null;
@@ -105,7 +107,7 @@ public class Frog : MonoBehaviour
   {
     mutations.Add(mutation);
     UpdateMutations();
-    Utils.PlayRandomClip(audioSource, audioPickup, minPitch, maxPitch);
+    Utils.PlayRandomClip(audioSourceHigh, audioPickup, minPitch, maxPitch);
   }
 
   public void Heal()
@@ -117,7 +119,10 @@ public class Frog : MonoBehaviour
   {
     pond = FindObjectOfType<Pond>();
     body = GetComponent<Rigidbody2D>();
-    audioSource = GetComponent<AudioSource>();
+    var audioSources = GetComponents<AudioSource>();
+    audioSourceHigh = audioSources[0];
+    audioSourceMedium = audioSources[1];
+    audioSourceLow = audioSources[2];
     collider = GetComponent<CapsuleCollider2D>();
     spriteRenderer = GetComponent<SpriteRenderer>();
   }
@@ -143,7 +148,8 @@ public class Frog : MonoBehaviour
   {
     // Recover
     if (isStunned)
-      isStunned = body.velocity.magnitude > 1f || Mathf.Abs(body.angularVelocity) > 120f;
+      isStunned = body.velocity.magnitude > 1f
+        || Mathf.Abs(body.angularVelocity) > 120f;
 
     // Rotate
     Vector2? v = Controls.GetDirection(playerIndex);
@@ -170,7 +176,7 @@ public class Frog : MonoBehaviour
     // Die
     if (health <= .0f)
     {
-      Utils.PlayRandomClip(audioSource, audioDeath, minPitch, maxPitch);
+      Utils.PlayRandomClip(audioSourceHigh, audioDeath, minPitch, maxPitch);
       Respawn();
     }
   }
@@ -288,7 +294,7 @@ public class Frog : MonoBehaviour
     if (CanJump)
     {
       body.AddRelativeForce(Vector2.up * jumpForce * ForceMultiplier, ForceMode2D.Impulse);
-      Utils.PlayRandomClip(audioSource, audioJump, minPitch, maxPitch, .2f);
+      Utils.PlayRandomClip(audioSourceLow, audioJump, minPitch, maxPitch);
     }
   }
 
@@ -300,7 +306,7 @@ public class Frog : MonoBehaviour
       activeTongue = Instantiate(tongue);
       activeTongue.Eject(this, body.mass, tongueDrag,
         tongueEjectForce, tongueReturnForce, delay);
-      Utils.PlayRandomClip(audioSource, audioSlurp, minPitch, maxPitch);
+      Utils.PlayRandomClip(audioSourceHigh, audioSlurp, minPitch, maxPitch);
     }
   }
 
@@ -320,7 +326,7 @@ public class Frog : MonoBehaviour
 
   void Quak()
   {
-    Utils.PlayRandomClip(audioSource, audioQuak, minPitch, maxPitch, .6f);
+    Utils.PlayRandomClip(audioSourceMedium, audioQuak, minPitch, maxPitch);
     Invoke("Quak", Random.Range(3f, 5f));
   }
 
@@ -349,7 +355,7 @@ public class Frog : MonoBehaviour
   {
     health -= damage;
     isStunned = true;
-    Utils.PlayRandomClip(audioSource, audioHit);
+    Utils.PlayRandomClip(audioSourceHigh, audioHit);
   }
 
   void OnCollisionEnter2D(Collision2D collision)
@@ -366,7 +372,7 @@ public class Frog : MonoBehaviour
       && mutations.Contains(Mutation.Bomberman))
       collision.gameObject.GetComponent<Frog>().Mutate(Mutation.Bomberman);
 
-    Utils.PlayRandomClip(audioSource, audioHit);
+    Utils.PlayRandomClip(audioSourceHigh, audioHit);
   }
 
   void OnTriggerEnter2D(Collider2D collision)
