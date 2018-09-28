@@ -316,9 +316,6 @@ public class Frog : MonoBehaviour
 
     mutations.Clear();
     UpdateMutations();
-
-    Mutate(Mutation.Blitz);
-    Mutate(Mutation.Bomberman);
   }
 
   void Quak()
@@ -333,15 +330,17 @@ public class Frog : MonoBehaviour
     {
       var giant = mutations.Contains(Mutation.Giant);
       var numBombs = giant ? 2 : Random.Range(2, 6);
+      var scale = giant ? .5f : .2f;
+      var offset = body.GetRelativeVector(Vector2.down)
+        * collider.size.y * transform.localScale.y * 1.2f;
 
       // Poop bombs
       for (int i = 0; i < numBombs; i++)
       {
         var bombInstance = Instantiate(bomb);
-        Vector2 offset = body.GetRelativeVector(Vector2.down)
-          * collider.size.y * transform.localScale.y * 1.2f;
-        bombInstance.transform.position = body.position + offset;
-        bombInstance.scale = giant ? .5f : .2f;
+        bombInstance.transform.position = body.position + offset
+          + Random.insideUnitCircle * .1f;
+        bombInstance.scale = scale;
       }
     }
   }

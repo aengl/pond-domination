@@ -36,6 +36,7 @@ public class Map : MonoBehaviour
 
   void Start()
   {
+    Cursor.visible = false;
     InvokeRepeating("Spawn", 0f, 1f);
   }
 
