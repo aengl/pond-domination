@@ -163,7 +163,7 @@ public class Frog : MonoBehaviour
     if (isOutsidePond)
       health -= Time.deltaTime * 10f;
     else
-      health += Time.deltaTime;
+      health += Time.deltaTime * 2f;
 
     health = Mathf.Min(maxHealth, health);
 
