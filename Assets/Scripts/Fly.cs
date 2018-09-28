@@ -28,7 +28,7 @@ public class Fly : MonoBehaviour
 
     // Update shader based on mutation
     GetComponent<SpriteRenderer>().material.SetVector("_HSLAAdjust",
-      new Vector4((float)mutationIndex * .1f, .5f, -.2f, 0f));
+      new Vector4((float)mutationIndex * .15f, .5f, -.2f, 0f));
 
     // Pick random waypoints
     InvokeRepeating("UpdateTarget", 0f, 1f);

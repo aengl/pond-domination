@@ -9,11 +9,18 @@ public class RippleEffect : MonoBehaviour
   {
     frog = GetComponentInParent<Frog>();
     particleSystem = GetComponent<ParticleSystem>();
+
   }
 
   void Update()
   {
-    var emission = particleSystem.emission;
-    emission.enabled = !frog.IsOutsidePond;
+    var enabled = !frog.IsOutsidePond;
+    if (enabled && particleSystem.isPaused)
+      particleSystem.Play();
+    if (!enabled && particleSystem.isPlaying)
+    {
+      particleSystem.Clear();
+      particleSystem.Pause();
+    }
   }
 }

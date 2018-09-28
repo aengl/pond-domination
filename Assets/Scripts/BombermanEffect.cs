@@ -19,8 +19,14 @@ public class BombermanEffect : MonoBehaviour
 
   void Update()
   {
-    var emission = particleSystem.emission;
-    emission.enabled = frog.mutations.Contains(Mutation.Bomberman);
+    var enabled = frog.mutations.Contains(Mutation.Bomberman);
+    if (enabled && particleSystem.isPaused)
+      particleSystem.Play();
+    if (!enabled && particleSystem.isPlaying)
+    {
+      particleSystem.Clear();
+      particleSystem.Pause();
+    }
 
     var scale = frog.mutations.Contains(Mutation.Giant) ? 3f : 1f;
     transform.localScale = new Vector3(scale, scale, scale);
