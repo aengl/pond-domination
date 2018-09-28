@@ -42,6 +42,11 @@ public class Frog : MonoBehaviour
     get { return transform.position; }
   }
 
+  public Rigidbody2D Body
+  {
+    get { return body; }
+  }
+
   public float ForceMultiplier
   {
     get { return body.mass; }
