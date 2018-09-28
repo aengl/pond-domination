@@ -111,7 +111,7 @@ ParticleSystem:
   ringBufferLoopRange: {x: 0, y: 1}
   looping: 1
   prewarm: 0
-  playOnAwake: 1
+  playOnAwake: 0
   useUnscaledTime: 0
   autoRandomSeed: 1
   useRigidbodyForVelocity: 1
@@ -4819,7 +4819,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bb2ed1dd3a57f4b8c8f2552130092829, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  color: {r: 0, g: 0, b: 0, a: 0}
+  color: {r: 0.43529415, g: 0.45882356, b: 0.7607844, a: 1}
   playerIndex: 1
   maxHealth: 100
   turnSpeed: 5
@@ -4836,12 +4836,21 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 1e960c7b77c874b8ca26a33ae98f1904, type: 3}
   - {fileID: 8300000, guid: 73bc3874caca3445ea7f06cd7bedbcf5, type: 3}
   - {fileID: 8300000, guid: 67424ee0b30ea4ab5a5c4a1d4db5b552, type: 3}
+  - {fileID: 8300000, guid: cfcbd8f06904b4b2eae126466898480a, type: 3}
+  - {fileID: 8300000, guid: 2d6b0a25874404ca781078161960ec30, type: 3}
+  - {fileID: 8300000, guid: 322bd1fed61144fb6896ecc447a05032, type: 3}
+  - {fileID: 8300000, guid: 0a6157c8138bd4523b3e10941d476d49, type: 3}
+  - {fileID: 8300000, guid: 68ea199ddef6940c5bd2c4e5fd757e8e, type: 3}
+  - {fileID: 8300000, guid: a23e41ee7d806406db1ba21a66e57cad, type: 3}
+  - {fileID: 8300000, guid: 4ec8198d4ff6044a6a412376514fed47, type: 3}
   audioSlurp:
   - {fileID: 8300000, guid: fb087681e5eb74a90950ef1c5d4727c7, type: 3}
   - {fileID: 8300000, guid: 6c66cbfc444964ba290b092e9b15b75d, type: 3}
   - {fileID: 8300000, guid: d91f940fd699b4af989dbbb1c070017f, type: 3}
   - {fileID: 8300000, guid: 9f009c96a05564c4a950765e44bed17b, type: 3}
   - {fileID: 8300000, guid: 5e6fbf2454654477f97401c1e13e92e7, type: 3}
+  - {fileID: 8300000, guid: 0a6b4cafa39a0494c8230049ebe6dd73, type: 3}
+  - {fileID: 8300000, guid: ad89e5a4075db4ce9a0be3bc3b46587b, type: 3}
   audioHit:
   - {fileID: 8300000, guid: b49fd391bcec843d6806d21cb6d27814, type: 3}
   - {fileID: 8300000, guid: 287bd3271295e4d1d99b12f63697404b, type: 3}
@@ -4853,6 +4862,14 @@ MonoBehaviour:
   - {fileID: 8300000, guid: b6328e145196640019185fbb29d5cf5c, type: 3}
   - {fileID: 8300000, guid: a9c85514ad5a4418dbc163a14ed426ef, type: 3}
   - {fileID: 8300000, guid: 0383ee68d7052475a84a8927be89fa59, type: 3}
+  - {fileID: 8300000, guid: 0ae6820e0ffd8437ba36d85a0dda7c77, type: 3}
+  - {fileID: 8300000, guid: 16e3300f5c0e340daa7d4f9ad33cf523, type: 3}
+  - {fileID: 8300000, guid: b26bbb77472754cd59f58772c32d37cc, type: 3}
+  - {fileID: 8300000, guid: d10d39f83f74e46058b4f8429ad5f99a, type: 3}
+  - {fileID: 8300000, guid: 5be80174e7bbe4c8fbe064caf690e064, type: 3}
+  - {fileID: 8300000, guid: 5b4ee9a68fbe441a3bb6fbf819c82536, type: 3}
+  - {fileID: 8300000, guid: ca2d4d20f62354775befb994a390904e, type: 3}
+  - {fileID: 8300000, guid: 162d3670aa06045d5957bd908f4cb1b3, type: 3}
   audioDeath:
   - {fileID: 8300000, guid: a8e071be154294a78b1addb75ac37942, type: 3}
   - {fileID: 8300000, guid: 9600a340226004e1596ced92108ab9ad, type: 3}
@@ -4863,6 +4880,9 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 760dff1772cbd4fb9b2f8c5e42635df2, type: 3}
   - {fileID: 8300000, guid: 15b0085c3eebb431b9c7dc3d7d67ba97, type: 3}
   - {fileID: 8300000, guid: 072a52e620b4345bfa41cbdb9dbb9830, type: 3}
+  - {fileID: 8300000, guid: 72be22e775d7b4e798fcb9802a706965, type: 3}
+  - {fileID: 8300000, guid: c8aa723eba0aa4799838c316e250648a, type: 3}
+  - {fileID: 8300000, guid: 71397c6c7e2df45259dc6a8ec41947e4, type: 3}
   audioPickup:
   - {fileID: 8300000, guid: d0d46e79e6ec34ae69fd9f57a7d8a418, type: 3}
   - {fileID: 8300000, guid: 2e9b5b41dc5cf4be2a2f665c6d026497, type: 3}
