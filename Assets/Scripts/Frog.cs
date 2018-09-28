@@ -1,6 +1,6 @@
-﻿using UnityEngine;
+﻿using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
+using UnityEngine;
 
 public enum Mutation
 {
@@ -59,7 +59,7 @@ public class Frog : MonoBehaviour
 
   public bool CanRotate
   {
-    get { return !IsStunned; }
+    get { return !isDying && !IsStunned; }
   }
 
   public bool IsOutsidePond
@@ -71,7 +71,8 @@ public class Frog : MonoBehaviour
   {
     get
     {
-      return !IsStunned
+      return !isDying
+        && !IsStunned
         && body.velocity.magnitude < .1f
         && activeTongue == null;
     }
@@ -79,7 +80,7 @@ public class Frog : MonoBehaviour
 
   public bool CanUseAbilities
   {
-    get { return activeTongue == null; }
+    get { return !isDying && activeTongue == null; }
   }
 
   public bool IsAIControlled
@@ -107,6 +108,9 @@ public class Frog : MonoBehaviour
 
   [SerializeField]
   bool isOutsidePond = false;
+
+  [SerializeField]
+  bool isDying = false;
 
   public void Mutate(Mutation mutation)
   {
@@ -144,6 +148,9 @@ public class Frog : MonoBehaviour
 
   void FixedUpdate()
   {
+    if (isDying)
+      return;
+
     // Update rotation
     if (CanRotate && targetDirection != null)
       Utils.RotateTowards(body, targetDirection.Value, turnSpeed, Time.deltaTime);
@@ -151,6 +158,9 @@ public class Frog : MonoBehaviour
 
   void Update()
   {
+    if (isDying)
+      return;
+
     // Recover
     if (isStunned)
       isStunned = body.velocity.magnitude > 1f
@@ -179,15 +189,19 @@ public class Frog : MonoBehaviour
     health = Mathf.Min(maxHealth, health);
 
     // Die
-    if (health <= .0f)
+    if (health <= .0f && !isDying)
     {
+      isDying = true;
       Utils.PlayRandomClip(audioSourceHigh, audioDeath, minPitch, maxPitch);
-      Respawn();
+      StartCoroutine("Die");
     }
   }
 
   void LateUpdate()
   {
+    if (isDying)
+      return;
+
     UpdateDrag();
 
     // Show "hops" by increasing sprite size
@@ -319,6 +333,7 @@ public class Frog : MonoBehaviour
   {
     health = maxHealth;
     isOutsidePond = false;
+    isDying = false;
 
     body.velocity = new Vector2();
     body.angularVelocity = 0f;
@@ -354,6 +369,34 @@ public class Frog : MonoBehaviour
         bombInstance.scale = scale;
       }
     }
+  }
+
+  IEnumerator Die()
+  {
+    body.Sleep();
+
+    Color c = spriteRenderer.material.color;
+
+    for (float f = 0f; f <= 1.0f; f += 0.01f)
+    {
+      // Grow
+      float scale = 2.56f + (f * 5.12f);
+      spriteRenderer.size = new Vector2(scale, scale);
+
+      // Turn to white and fade
+      var v = spriteRenderer.material.GetVector("_HSLAAdjust");
+      v.z = f / 2f;
+      v.w = -f;
+      spriteRenderer.material.SetVector("_HSLAAdjust", v);
+
+      yield return new WaitForSeconds(.02f);
+    }
+
+    // Restore and respawn
+    c.a = 1.0f;
+    spriteRenderer.material.color = c;
+    body.WakeUp();
+    Respawn();
   }
 
   void OnExplosion(float damage)

@@ -4899,6 +4899,7 @@ MonoBehaviour:
   health: 0
   isStunned: 0
   isOutsidePond: 0
+  isDying: 0
 --- !u!212 &7043171250848339181
 SpriteRenderer:
   m_ObjectHideFlags: 0
